@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>    #replace /var/folders/qw/3kcrmwhs1yg0y8pnpd2c14x80000gn/T/TextMate_snippet_command.caT06v: line 4: Doctor: command not found with your model name
+      ActiveRecord::Base.silence do
+        records = all
+		recordscount = records.count
+        records.each_with_index do |r, i|
+          puts (i.to_f / recordscount.to_f * 100).round(1).to_s + "% completed...(#{i}/#{recordscount})" if i%100==0
+          ###code goes here
+          
+        end# of records
+        nil
+      end# of ar base silence</string>
+	<key>name</key>
+	<string>records</string>
+	<key>tabTrigger</key>
+	<string>records</string>
+	<key>uuid</key>
+	<string>F367EC05-5C0E-4C4B-843D-EF531CB90FAA</string>
+</dict>
+</plist>

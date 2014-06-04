@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>  ###############  ###############  ###############  ###############  ###############  ###############  ###############
+###############  ###############  ###############  SEPARATOR TITLE TEXT   ###############  ###############  ###############
+  ###############  ###############  ###############  ###############  ###############  ###############  ##############    </string>
+	<key>name</key>
+	<string>separator</string>
+	<key>tabTrigger</key>
+	<string>sep</string>
+	<key>uuid</key>
+	<string>563996C1-4BE8-41C1-B027-0D0D388D3DF4</string>
+</dict>
+</plist>

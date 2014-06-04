@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>ActiveRecord::Base.silence do</string>
+	<key>name</key>
+	<string>ar_base_silence</string>
+	<key>tabTrigger</key>
+	<string>silence</string>
+	<key>uuid</key>
+	<string>0E93A222-1257-43BC-9C43-88F8B483A3AA</string>
+</dict>
+</plist>

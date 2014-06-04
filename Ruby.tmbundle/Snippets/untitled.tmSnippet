@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>      County.sc.order(:name).each_with_index do |c, i|
+        beginning = Time.now
+        puts "\nexporting #{c.name} County..."
+        records = v1.where{st_within(:proj_shape_3361, c.proj_shape_3361)}
+        rcount = records.count.to_f
+        unless i==0
+          rps = records_per_second = @@previous_county_number_of_records / @@previous_county_wait_seconds                        
+          puts "should take about #{(rcount / rps / 60).round(1)} minutes"      
+        end
+        export_geojson("oakridge - #{c.name} County", records)
+        ending = Time.now
+        @@previous_county_wait_seconds = (ending - beginning).round(1)
+        @@previous_county_number_of_records = rcount
+        puts "it took #{(@@previous_county_wait_seconds / 60.0).round(1)} minutes this time for #{rcount} records to be saved. (#{(rcount / @@previous_county_wait_seconds * 60.0).round(1)} rpm)"</string>
+	<key>name</key>
+	<string>guess how long will take</string>
+	<key>tabTrigger</key>
+	<string>guess</string>
+	<key>uuid</key>
+	<string>DA7968DA-21B3-44A1-A49B-B9704F0E0877</string>
+</dict>
+</plist>
