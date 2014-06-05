@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>def nonspatials
+  cols = self.class.columns.select{|c| c.type != :spatial}.select{|c| c.name !~ /hsh|version/}.map(&amp;:name).sort
+  attributes.slice(*cols)
+end
+
+def self.export_geojson(fn, records)
+  features = []
+  f = RGeo::GeoJSON::EntityFactory.new
+  ActiveRecord::Base.silence do
+    records.each_with_index do |r, i|
+       cols = r.nonspatials
+       raise if r.proj_shape_3361.blank?
+       geoshp = $gsc.proj_to_geo(r.proj_shape_3361)
+       features &lt;&lt; f.feature(geoshp, r.id, cols)
+    end
+  end
+  @coll = f.feature_collection(features)
+  geojson = RGeo::GeoJSON.encode(@coll).to_json
+  File.open("#{fn}.geojson", "w") {|f| f.write(geojson)}
+end</string>
+	<key>name</key>
+	<string>export_geojson</string>
+	<key>tabTrigger</key>
+	<string>geojson</string>
+	<key>uuid</key>
+	<string>22291BE3-1986-407B-AB21-8167FD5455BF</string>
+</dict>
+</plist>

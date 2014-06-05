@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>res = where{st_contains(:proj_shape_3361)}
+if res.count == 0
+  nil
+elsif res.count == 1
+  
+else
+  raise "multiple results for #{proj_shape_3361}"
+end# of method (almost)</string>
+	<key>name</key>
+	<string>results check just one</string>
+	<key>tabTrigger</key>
+	<string>res</string>
+	<key>uuid</key>
+	<string>090AE685-85B2-4BEE-BC28-DCC6EF6B34B5</string>
+</dict>
+</plist>
