@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>thsh = {"s" =&gt; "text", "f" =&gt; "float", "i" =&gt; "integer", "t" =&gt; "text"}
+puts "done creating base cols. Now adding costar's columns..."
+cols = CSV.open("csvs/costar_dirt/costar_landcols.csv").read.flatten.map{|col| CostarShoppingCenter::CONVERT_COL[col]}
+puts "cols are #{cols} (#{cols.count} total)"
+cols.each do |col|
+	if CostarDirt.column_names.include?(col)
+	  puts "column already created. skipping"
+	  next
+	end# of column_names (check for pre-existing) -- this script expects failure, more or less. not reversible either I think. each time one iteration runs through this I think it should add the column and not allow a future failure of this #change method's to rollback any changes already made...R&amp;D phase feature...
+  _type = thsh[ask("which type is #{col}? (s, f, or i)")]
+  raise "'#{_type}' is not a string!" unless _type.is_a?(String)
+  ActiveRecord::Base.add_column(:costar_dirts, col.to_sym, _type.to_sym) #calling this from outside of the class should make each column addition permanent regardless of whether or not the entire script finishes...
+end# of cols</string>
+	<key>name</key>
+	<string>dynamic col generation</string>
+	<key>tabTrigger</key>
+	<string>type</string>
+	<key>uuid</key>
+	<string>A7BFBB22-34EC-4A8E-BBB6-23B06D263442</string>
+</dict>
+</plist>

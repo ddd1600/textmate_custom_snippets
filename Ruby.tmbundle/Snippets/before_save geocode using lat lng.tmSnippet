@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>before_save do |r|
+  r.proj_shape_3361 = $gsc.factory.parse_wkt("POINT (#{r.longitude} #{r.latitude})").projection
+end</string>
+	<key>name</key>
+	<string>before_save geocode using lat lng</string>
+	<key>tabTrigger</key>
+	<string>before</string>
+	<key>uuid</key>
+	<string>4D316BC1-856D-47E7-BEBF-0DDBC09CEC6E</string>
+</dict>
+</plist>

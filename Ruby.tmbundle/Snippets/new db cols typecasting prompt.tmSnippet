@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>    cols = CSV.open("all_sc_costar_shopping_centers_for_sale_june9_2014.csv").readlines.first
+    cols = cols.map{|str| CostarApartment::CONVERT_COL[str]}
+    ap cols
+    ask "cols are as follows press any key to continue"
+    hsh = {"s" =&gt; "string", "f" =&gt; "float", "i" =&gt; "integer", "t" =&gt; "text", "d" =&gt; "date"}
+    create_table :costar_shopping_centers do |t|
+      cols.each do |col|
+        _type = hsh[ask("which type is '#{col}'? -- s(tring), f(float), i(nteger), t(text) or d(ate)")]
+        raise unless _type.is_a?(Symbol)
+        t.send(_type, col.to_sym)
+      end</string>
+	<key>name</key>
+	<string>new db cols typecasting prompt</string>
+	<key>tabTrigger</key>
+	<string>_type</string>
+	<key>uuid</key>
+	<string>8A94C0A1-5138-4967-BC63-40C2F048FB9E</string>
+</dict>
+</plist>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>def self.load_csv
+  ActiveRecord::Base.silence do
+    puts "GATHERING ROWS FROM MULTIPLE SPREADSHEETS"
+    paths = Dir.glob("csvs/costar_csc/*shopping centers all inventory gt 2500sf _ june 7*.csv")
+    ap paths
+    rows = []
+    headers_for_test = []
+    paths.each_with_index do |fn, pi| 
+#      puts "#{pi}: #{File.basename(fn)}"
+      fn_rows = CSV.open(fn).read
+      headers_for_test &lt;&lt; fn_rows.shift
+      fn_rows.each { |row| rows &lt;&lt; row }
+    end# of paths
+    headers_for_test.each_with_index do |headers, j|
+      raise "headers not the same for row #{j}!" unless headers == headers_for_test[j]
+    end# of headers_for_test
+    puts "test passed. All headers were identical."
+    puts "#{rows.count} records found...about to load em up"
+    $rcount = rows.count
+    cols = headers_for_test.first.map{|str| CostarShoppingCenter::CONVERT_COL[str]}
+    rcount = rows.count
+    rows.each_with_index do |row, ri|
+      puts (ri.to_f / rcount.to_f * 100).round(1).to_s + "% dbload completed...(#{ri}/#{rcount})" if ri%50==0
+      c = CostarBuilding.new
+      cols.each_with_index do |col, ci|
+        puts "#{ci}: '#{col}'"
+        data = row[ci] || "nil"
+        next if data == "nil"
+        if data == "Withheld"
+          data = nil
+        elsif data == "-"
+          data = nil
+        elsif CostarBuilding.columns.select{|c| c.name == col}.first.type.to_s =~ /float|integer/
+#            print "\ncleaned #{data} to..."
+          data = data.gsub(",", "").strip
+#            print("#{data}\n")
+        elsif data =~ Regexp.union("'s")
+          data = data.gsub("'s", "s")
+        end# of if data ....
+        eval("c.#{col} = data")
+      end
+      c.costar_shopping_center_id = c.center_id
+      c.date_added = Time.now.to_date
+      c.for_sale = c.for_sale_status == "Y" ? true : false
+      c.save
+      ap c if ri &lt; 10
+    end# of rows
+  end# of ar silence
+  puts "#{$rcount} rows detected in spreadsheets. Added #{CostarBuilding.count} records"
+end</string>
+	<key>name</key>
+	<string>load multiple csvs</string>
+	<key>tabTrigger</key>
+	<string>paths</string>
+	<key>uuid</key>
+	<string>CCF0F7CB-7DF5-4110-BF4E-DB2F0713B01B</string>
+</dict>
+</plist>
